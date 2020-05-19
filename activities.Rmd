@@ -1,0 +1,11 @@
+---
+title: "Activities with Little Apps"
+---
+
+The [StatPREP.org](https://statprep.org) site has many resources for teaching statistics, including activities [specifically designed around the Little Apps](https://ecstatic-mclean-a0b3e0.netlify.app/categories/little-app/)
+
+Those activites were written for the original generation of Little Apps. As time permits, we will be updating them for the new generation.
+
+We encourage instructors to send us a copy of activities that they write. Sharing such valuable resources helps make us all better teachers. We'll post any such contributions *via* this page.
+
+* In the April 23, 2020 StatPREP Webinar, Jennifer Ward posted [this link to her activity](https://docs.google.com/document/d/1bmZJi7R7gymeyFwpYdlkEzynEiEwWKcYRlsR9eN1jKU/edit) using the Regression Models Little App.

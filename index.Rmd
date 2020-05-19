@@ -1,0 +1,49 @@
+---
+title: "Comments on Calculus 141X"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>")
+```
+
+```{r setup}
+
+```
+
+> What is calculus?
+
+*Calculus is a set of strategies for breaking up complicated things into simple components and assembling simple components into potentially complicated wholes.* [Read more.](post-what-is-calculus.html)
+
+
+> Function families and parameters
+
+*There are many kinds of relationships between different functions. In calculus, for example, we'll study the relationship of  "derivative" and "anti-derivative". Here, we examine families of functions and the individuals within those families. Within each family every member function has the same formula. The distinction between individual members is completely described by the numerical value of a parameter.* [Read more.](post-function-families.html)
+
+> The modeling functions?
+
+*There's a reason why there is a set of "modeling functions."& [Read more.](post-modeling-function.html)
+    
+> Applying functions to arguments
+
+*There are three main ways we'll use to apply functions to  arguments. Being able to recognize the patterns will help you make sense of R expressions.*  [Read  more.](post-passing-arguments.html)
+
+> Formal arguments
+
+*The names of arguments don't matter. It's the role the name plays in the algorithm that counts.& [Read more.](post-formal-arguments.html)
+
+> So many functions. Why?
+
+*The basic functions we encounter in calculus--sines, exponentials, power-laws, etc.--are  like the differently shaped pieces in a set of wooden  building blocks. There are so shapes because there are so many different real-world phenomena to be described  by calculus.* [Read more.](post-so-many-functions.html)
+
+> What is a graph of a function?
+
+*It's simpler than you think!*  [Read more.](post-what-is-a-graph.html)
+
+> Non-linear parameters and linear combinations.
+
+*Creating models by linear combinations of functions is a solved problem and software is fast, reliable and always reaches a correct solution without human  intervention. For nonlinear parameters like  $k$ in $e^{-kt}$ or $P$ in $\sin(2\pi t/P)$ it helps to  have a human hand guide the computer.* [Read more.](post-nonlinear-vs-linear.html)
+    
+
+

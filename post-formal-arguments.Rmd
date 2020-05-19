@@ -1,0 +1,106 @@
+# Formal arguments
+
+When you hear the word "formal," perhaps you think of tuxedos and receptions for heads of state. In computer programming, it means "just the form is important, the content doesn't matter." That's the way it is with arguments to functions in R (and most other computer languages). 
+
+For instance, here's a R function:
+```{r}
+decay <- function(x, t) {
+  sin(2 * pi * x / 3) * exp( - log(2) * t / 5 )
+}
+```
+
+The function `decay()` as defined has two arguments, `x` and `t`. Each of names has a definite role in the formula. For instance `x` is inside the `sin()` function and `t` is inside the `exp()` function.
+
+`x` and `t` are *formal* in the sense that the names themselves don't matter. We could equally well have defined the function as
+```{r}
+decay <- function(space, time) {
+  sin(2 * pi  * space / 3) * exp( - log(2) * time / 5)
+}
+```
+
+To the user applying the function to arguments, the names matter not at all. Either version of `decay()` gives exactly  the same answer to, say,  `decay(5, 1)`. 
+ 
+In evaluating the function call `decay(5, 1)`, the argument in the first position will become the value of `space` inside the function algorithm. Similarly, the argument in the second position becomes the value of `time`. 
+
+You do have to take care to put the arguments in  their right positions: `decay(5, 1)` is not the same as `decay(1, 5)`.
+
+There is also a concept in R of a "named argument". As you might suspect, for named arguments the name of the argument is important and has to be respected by the person using the function. Here's yet another version of `decay()`, this one with two named arguments in addition to the formal `x` and `t`.
+
+```{r}
+decay <- function(x, t, period = 3, half_life = 5) {
+  sin(2 * pi  * x / period) * exp( - log(2) * t / half_life)
+}
+```
+
+In using functions with named arguments, you have choices.
+
+- Ignore the named arguments entirely, in which case they will have the default values assigned to them in the function definition (3 for `period` and 5 for `half_life`), for example: `decay(5, 1)`    
+
+    Notice that the formal arguments *must* be given according to the order found in the function definition.
+    
+- Assign a value to one  or more of the named arguments, in which case you have to use exactly the name used in the function  definition. Examples: `decay(5, 1, period = 10)` or `decay(5, 1, half_life = 17)` or `decay(5, 1, half_life = 17, period = 3)`.
+
+    The formal arguments still need to be given according to the order found in the function definition, but order doesn't matter so far as the named arguments are concerned
+    
+- Assign a named value to one of more of the formal arguments (as well as zero or more of the named arguments).
+
+In the following, notice how the output of `decay()`, using the version with named arguments, changes or not when using named  arguments.
+
+```{r}
+decay(5, 1)
+decay(1, 5)
+decay(t = 1, x = 5)
+decay(5, 1, 3, 5)
+decay(5, 1, 5, 3)
+decay(period = 3, t = 1, 5)
+```
+
+The last example can be confusing. When R encounters named arguments when applying a function, R  matches up each named argument with the corresponding one found in  the function definition, *regardless of order*. Any unnamed arguments are used in order to fill in the values for the remaining formal arguments. So in the last example, the argument 5 will be matched to `x` because after taking account of `period`  and `t`, the first formal argument is the input for `x`.
+
+It's a good habit to make note of the names being used as arguments in  R functions, whether they are formal arguments or named arguments. You'll find that most mathematical functions  with  one argument use the formal name `x`, but not all. For instance, the function `sin()` has a formal argument named `x`. This means that you *cannot* apply it to a named argument with a different name. For instance:
+
+```{r error = TRUE}
+sin(2)
+sin(x = 2)
+sin(t = 2)
+```
+
+**Arguments and Parameters**. In mathematical functions, it's common to refer to some of the quantities involved as *parameters*. Here's an example, with two parameters:
+
+$$g(x) \equiv A e^{- k t} .$$
+
+With experience, one learns to recognize which symbols are parameters and which not. Often, this is because $x$, $y$, $z$, $t$ are used for the inputs to the function, and other letters of the alphabet (including the Greek alphabet) are used for parameters.
+
+In R, it's allowed to make functions in an analogous manner, but it's an *extremely bad habit* and should only be used by experts. Let's try it and see what happens.
+
+```{r error = TRUE}
+g <- function(x) {A * exp(-k * t)} # BAD HABIT
+g(3)
+g(3, A = 2, k = 0.01)
+```
+
+When translating the mathematical notion of *parameter* into R,  *always* include the names of the parameters in the argument list. For instance:
+```{r}
+g <- function(x, A, k) {A * exp(-k * x)}
+g(3, A = 2, k = 0.01)
+```
+
+If you look carefully at the definition of `g()`, you'll see that I used  `x` for the formal argument rather than `t` as suggested by the mathematical notation. I can do this because the names of formal arguments don't really matter. That is,  they don't matter to the computer. But they do matter to the human reader and user of computer code. So what I did is bad style; I should have used `t` to make the connection with  the mathematical notation.
+
+The word "parameter" is used to denote the role of a quantity. It's typically a quantity that has a *fixed* numerical value. So, in $h(t) \equiv \sin(2 \pi t/P)$,  we recognize $t$ as the input, the quantity that we're going to be exploring for different values. On the other hand, convention dictates that $P$ is a parameter, in this case the "period" of the sine function.
+
+The named-argument system in R suits the use of parameters very nicely. Not only does it signal clearly the intention that something be thought of as a parameter, it also enables you to give a default fixed value to the parameter. Like this:
+
+```{r}
+h <- function(t, P = 10) {sin(2 * pi * t / P)}
+h
+```
+
+If the user is satisfied with the default value for `P`, the argument can be ignored. Or it can be assigned any other value that the user likes. 
+
+If you're using `makeFun()`  to turn a tilde-expression into a function, list the default values of the parameters after the tilde-expression:
+
+```{r}
+h <- mosaic::makeFun(sin(2 * pi * t / P)  ~ t,  P  = 10)
+h
+```

@@ -1,0 +1,24 @@
+name: "Comments on Calculus"
+output_dir: 'docs'
+navbar:
+  title: "Calc 141X Blog"
+  left:
+    - text: "Graphics"
+      href: Graphics.html
+    - text: "Software"
+      href: Software.html
+    - text: "Datasets"
+      href: data.html
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+    mathjax: "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_HTMLorMML.js"
+    toc_depth: 3
+    toc_float:
+      collapsed: false
+    includes:
+      in_header: include_head.html
+      before_body: include_header.html
+      after_body: include_footer.html
+    css: css/rmarkdown.css

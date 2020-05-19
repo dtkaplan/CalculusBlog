@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>post-function-families.utf8</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<meta name="description" content="Materials for the Stats for Data Science mini-course on statistical inference." />
+
+<link rel="icon" type="image/png" href="images/favicon.png" />
+
+<script type="text/javascript" src="js/redirect.js"></script>
+<script type="text/javascript" src="js/rmarkdown.js"></script>
+<script type="text/javascript" src="js/ga.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="css/rmarkdown.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Calc 141X Blog</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="Graphics.html">Graphics</a>
+</li>
+<li>
+  <a href="Software.html">Software</a>
+</li>
+<li>
+  <a href="data.html">Datasets</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="rStudioHeader" class="alwaysShrunk">
+  <div class="innards bandContent">
+    <div>
+      <a class="productName" href="index.html">Maybe the "StartR" book?</a>
+      <div class="rStudio">
+        <span class="light">What to go in the footer: Daniel Kaplan</span></div><div></div> <a href="https://dtkaplan.github.io/SDS-MAA-minicourse/"></a></div>
+    </div>
+  </div>
+</div>
+<style type="text/css">
+#TOC {
+  margin-left: 35px;
+  margin-top: 90px;
+}
+</style>
+
+<script type="text/javascript">
+$(".main-container").removeClass("main-container").removeClass("container-fluid").addClass("footerPushDown");
+</script>
+
+<div id="pageContent" class="standardPadding">
+  <div class="articleBandContent">
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="function-families-and-parameters" class="section level1">
+<h1>Function families and parameters</h1>
+<p>Throughout modeling you will hear about <em>functions</em>, <em>arguments</em>, <em>inputs</em>, and <em>parameters</em>. The distinction between arguments, inputs and parameters is a matter of perspective: what you are going to be doing with the function. Until you know some of the uses to which functions will be put, it’s hard to make a clear distinction among the three. Indeed, it’s not unreasonable to think of them all as the same thing: different names for the inputs to which you apply a function.</p>
+<p>Typically when we construct models we are trying to match a pattern in a relationship. With experience, one comes to realize that there are some very common forms of relationship and we learn what kind of function is most suitable for matching the form of the relationship. For example, “unacquainted,” “dating,” “married,” “divorced,” and “widowed” are stereotypical forms of relationship between two people. Each form of relationship comes with certain expectations about how the relationship works (or doesn’t). Human relationships are so rich that there can be overlap between types of relationship: some marriages are much like dating, some like divorced or even unacquainted. But there are also differences. For instance, often married couples share all finances, but dating or divorced couples typically do not.</p>
+<p>A parameter is a quantity that points to a specific form of relationship rather than a general category. Again, human relationships are very rich, so we’ll oversimplify and stereotype. Let’s imagine that the parameter for functions describing human relationships is <span class="math inline">\(b\)</span>, the number of years that the couple has been in the relationship. Knowing that a couple has been married for 0.1 year gives you quite a different picture than that of a couple who have been married for 10 years, 30 years, or 50 years. Similarly, dating relationships with a parameter of <span class="math inline">\(b =\)</span> 0.1 year are very different than those with a parameter of 1 year or of 10 years. The same is true for divorced couples.</p>
+<p>In personal affairs, the relationship tells you about the kind of things the people do or don’t do together. In mathematical functions, the relation is between an input and an output; knowing the input you can figure out the output. Different function forms–sine wave, straight line, exponential, logarithm–correspond more or less to the qualitative differences in kinds of relationship, what we might call the “shape” of the relationship.</p>
+<p>The parameters of mathematical functions take the general kind of shape and allow it to be matched in detail to a particular situation.</p>
+<p>Often, a different metaphor is used to explain the role and uses of parameters. If we think of an individual function as a person, we can imaging “families” of functions. The members of each family all have some broad traits in common. But each member has it’s own distinctive identity. Within a family of people, we distinguish individuals by their first name. Within a family of functions, we distinguish individuals by parameters.</p>
+<p>My goal here is to introduce three families of functions and some individual members of the families of particular prominence.</p>
+<p>The three families are: Exponential, Logarithmic, Power-law.</p>
+<p>I think that computer notation is better at giving names to the functions and in making it clear how the members of any one family are related to one another. Each of these functions has a single input, which traditionally but arbitrarily we call <span class="math inline">\(x\)</span> and a single parameter which I’ll call <code>b</code>. Again, think of the parameter as the “first name” of the function; a way to point to any individual member of the family.</p>
+<p>Here they are:</p>
+<ul>
+<li><code>exponential &lt;- function(x, b) {  b^x }</code>, that is, <code>b</code> raised to the power of <code>x</code>.</li>
+<li><code>power_law &lt;- function(x, b) { x^b }</code></li>
+<li><code>logarithm &lt;- function(x, b) {</code> ???? <code>}</code></li>
+</ul>
+<p>Let’s look at some family portraits of these functions. A family portrait typically involves multiple members of a family. For very large families–these function families have an infinite number of members: all the different possible values of <code>b</code>–portraits show only a few of the family members.</p>
+<p><img src="post-function-families_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="post-function-families_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="post-function-families_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>A person glancing at these families might be tempted to say that they are all pretty much the same: the graphs are curves. This is true, just as it’s true that within and across human families people are people. But look more carefully and you’ll see that within a family, all the functions have things in common. For instance, within each of these three families, all the members either curve up or curve down. And within the families, all the members have identical outputs for a particular input, whether that be <span class="math inline">\(x=0\)</span> (the exponential family) or <span class="math inline">\(x=1\)</span> (the power-law and logarithmic families).</p>
+<div id="wheres-the-formula-for-the-logarithm-family" class="section level2">
+<h2>Where’s the formula for the logarithm family?</h2>
+<p>You probably noticed that in the computer-form definition for the exponential and power-law functions a specific formula was given to calculate the output from the input. Or, to be more precise, you learned a specific mathematical notation involving superscripts to describe the function, although you probably can translate this to arithmetic only when the quantity in the superscript is an integer.</p>
+<p>Logarithms are different. The logarithmic function was invented by John Napier (1550-1617) and popularized as a means to perform calculations by Henry Briggs (1561-1630). Napier made up the word “logarithm.” You can see in it the start of the word “arithmetic” and the start of the Greek word λόγος (logos), which is related to the English word “logic.”</p>
+<p>In today’s language, we say that the logarithm is the <em>inverse function</em> to exponentiation. All we need to do is find the value of the exponential function for some input x and parameter b, for instance</p>
+<p><span class="math display">\[100 = 10^2\ \ \  \mbox{that is,}\ \ b^x\ \ \mbox{for}\ \ \ b = 10\ \  \mbox{and}\ \   x = 2\]</span></p>
+<p>This tells us that <code>logarithm(100, 10)</code> 2. This one fact isn’t much use unless we happen to want the logarithm of 100. But the ability to calculate exponentiation means that we can carry out a search for the logarithm of whatever input we want. We need to start with two guesses, one that is too high and one that is too low. “Too high” means that <span class="math inline">\(b^{guess} &gt; x\)</span> and too low means that <span class="math inline">\(b ^ {guess} &lt; x\)</span>. This is called a bracket. Then, we try a new guess, in the middle and see if that is too high or too low. If too high, we use the new guess to replace the old high guess. If too low, we use the new guess to replace the old low guess. Then we repeat the process. Each time the new bracket is half as large as the previous bracket. After many cycles–we call these “iterations”–the bracket is so small that the too-high guess and the too-low guess are practically the same. That means we’ve arrived at the answer.</p>
+<p>This is a description of an algorithm in words and there’s not a purely algebraic notation that expresses it. But computer programming languages were developed to express algorithms, so here is a definition that could be used to replace the ???? in the description above.</p>
+<pre class="r"><code>logarithm &lt;- function(x, b = 10)  {
+  bottom = -1000  # too low!
+  top  = 1000     # too high!
+  for (iters  in  1:50) { # repeat 50 times
+    middle  &lt;- (top + bottom) / 2
+    if (b ^ middle &gt; x) top &lt;- middle
+    else bottom &lt;- middle
+  }
+  
+  middle
+}</code></pre>
+<p>Such algorithms rely on the ability of computers rapidly to carry out masses of arithmetic. Technological developments within living memory made this possible, particularly transistors and integrated circuits.</p>
+<p>In order to produce a table of logarithms to support high precision calculation in the 1600s, Henry Briggs had to calculate, check, typeset, and print roughly 200,000 digits. By hand. This massive effort was undertaken to provide a means to speed up other calculations that were important to the day for finance, navigation, astronomy and such. To honor this heroic effort, here is a small part of Brigg’s table of logarithms, published in 1617.</p>
+<p><img src="images/Briggs-starttable.png" width="80%" /></p>
+</div>
+<div id="where-things-are-going" class="section level2">
+<h2>Where things are going</h2>
+<p>Parameter formulations that allow us to “see” which member best applies to a given situation.</p>
+<p>You might be disappointed that no formula is given for the logarithm function. We know about the logarithm only in terms of the way it is related to the exponential and power-law families of functions. Indeed, it was not identified as a particular family of functions and given a name until 1600.</p>
+<p>Actually, there is an arithmetic process–that is, one involving just multiplication, division, addition, and subtraction–for calculating exponential and power-law functions and even then only when the quantity to the right of <code>^</code> is an integer: <span class="math inline">\(0, \pm 1, \pm 2, \ldots\)</span>.</p>
+<p>Some nomenclature and notation … the words often given to signify the quantity to the right of <code>^</code> are “power” or “exponent.” What’s written in computer notation as <code>b^x</code> is written in classical mathematical notation as a superscript: <span class="math inline">\(b^x\)</span>.</p>
+<p>From antiquity, people have known how to extend the calculations of exponential and power-law function from integers in the subscript to the reciprocals of integers: $ , , , , $. The process involves some arithmetic, but it also involves <em>comparing</em>, <em>branching</em>, and <em>iterating</em>. (These are common-sense operations, but not arithmetic ones.) Computer languages offer arguably the best notation for these operations.</p>
+<p>As regards the logarithm function, it was given a name only around 1600 when methods involving comparing, branching, and iterating were developed to perform the calculation for any <code>x</code> and <code>b</code>.</p>
+<p>Over the centuries, there have been many different motivations behind the particular functions introduced in the calculus story, many of them relating to the calculation of <em>exact</em> values for mysterious mathematical expressions. For instance, consider this one ublished by Leonhard Euler in 1755 for which I know absolutely no practical use:</p>
+<p><span class="math display">\[1^{-26} + 2^{-26}  + 3^{-26} + 4^{-26} + \cdots =  \frac{1315862}{11094481976030578125} \pi^{26}\]</span></p>
+<!-- See p. 54, "Euler: The master of us  all" (1999) William Dunham  -->
+<p><img src="post-function-families_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Or, as a contour plot:</p>
+<p><img src="post-function-families_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>We will be interested in practical applications</p>
+<p>Our purpose in learning calculus</p>
+</div>
+</div>
+
+  </div> <!-- articleBandContent -->
+</div> <!-- pageContent -->
+
+<div id="rStudioFooter" class="band full">
+<div class="bandContent">
+  <p>Math 141X is a modern reconfiguration of introductory calculus oriented toward modeling, computation, and mathematical methods widely used in science, engineering, and management. </p>
+</div>
+</div>
+
+<!-- bizible -->
+<script type="text/javascript" src="//cdn.bizible.com/scripts/bizible.js" async=""></script>
+
+<!-- disqus -->
+<div id="disqus_thread" class="standardPadding"></div>
+<script type="text/javascript" src="js/disqus.js"></script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+<script type="text/javascript" src="js/external-links.js"></script>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_HTMLorMML.js";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

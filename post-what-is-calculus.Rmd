@@ -1,0 +1,41 @@
+---
+title: "What is calculus?"
+author: "Daniel Kaplan"
+date: "`r date()`"
+---
+
+The history of mathematical problem solving over more than 2000 years builds substantially on an everyday problem-solving strategy: taking a complex object which we want to use in some way, breaking it down into simple parts which can be easily handled and altered according to plan, then re-assembling the parts back into a whole. 
+
+For generations, university introductory calculus courses have featured the careful definition of the *infinitely small*, something that shows up in the textbook topics of "limits" and "infinite series." Although traditional, it has little to do with the *uses* of calculus, where techniques often involve taking things apart into components that are not so small. For the student who will be using calculus, the genuinely important part of an introduction is learning a small set of concepts and techniques and when they can be successfully used to solve a given real-world problem.
+
+## Example 1: Specifying a complex shape
+
+Many of the manufactured objects we encounter in everyday life have forms that are familiar but which quickly start to be complicated when we look closely. Consider, for instance, text. In English and many other languages that use an alphabet, the components of text are words and punctuation, which in turn are composed of letters and other characters.
+
+When we display text, either on paper or electronic screen, we need to describe the shape of each character so that the machine that renders the character can do its job. Imagine, for instance, that you are instructing a 3-D printer to lay down the outline of a character. Your instructions determine where the printer head should be at each instant of time and whether it is extruding material or not. The mechanics of such printers (and many other devices) use stepper motors arranged to move the head in the x-direction, the y-direction, or both simultaneously. An individual stepper motor can be instructed to move to one given position to another at a specified velocity. 
+
+Figure 1 shows the lowercase letter "e" in four different fonts. How can the font author represent the outline of a letter in a way that will work well for the different fonts?
+
+
+
+```{r 4e, echo=FALSE, fig.cap="Figure 1. The shape of character \\"e\\" can be substantially different from one font to another."}
+knitr::include_graphics("4-e.png")
+```
+
+You can imagine a craftsman carving out or sketching the shape of each character in a font, then using some sort of computer pointer to find the x-y position of each in a sequence of points on the perimeter of the letter.
+
+The methods of calculus have provided a more flexible, compact, and easily editable way to mark the perimeter. These are called *Bezier splines*. Figure 2 shows a representation 26 on outside, 14 on inside
+
+
+
+```{r bezier-e, echo=FALSE, fig.cap="Figure 2. Representing an \\"e\\" with Bezier splines. Thirteen components are used for the outside perimeter, seven are used for the inside hole. Source: [jdhao's blog](https://jdhao.github.io/2018/11/27/font_shape_mathematics_bezier_curves/)", out.width = "40%"}
+knitr::include_graphics("bezier-e.png")
+```
+
+TALK ABOUT HOW Straight lines aren't a good match. Neither are circles or ellipses, because the *smoothness* of the match between consecutive segments is important. The mathematical definition of smoothness--a concept that stems directly from calculus--enables us to construct representations that are smooth. In a Bezier spline, each segment is a function. At the connection points, the value of the functions as well as its *first* and *second* derivatives are matched. You may not yet know what is a "first" or a "second derivative." That's something you'll learn in calculus.
+
+You can design your own letters using tools such as [*FontForge*](https://fontforge.org/en-US/)
+
+
+* [A Primer on Bézier Curves](https://pomax.github.io/bezierinfo/)
+
